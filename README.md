@@ -1,2 +1,2 @@
 # codex-of-omens
-data science portfolio
+this is my first portfolio :)
