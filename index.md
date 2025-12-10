@@ -14,7 +14,7 @@ I’m especially interested in time series forecasting, energy systems, and turn
 ## Featured Project
 
 <div class="card">
-  <h2><a href="/projects/solar-pv-spain-forecast">Solar Photovoltaic Generation in Spain: Time Series Forecasting</a></h2>
+  <h2><a href="projects/solar-pv-spain-forecast">Solar Photovoltaic Generation in Spain: Time Series Forecasting</a></h2>
   <p>
     Time series analysis of monthly solar PV energy sold in Spain. 
     SARIMA modeling to capture trend and seasonality and forecast generation up to 2027.
