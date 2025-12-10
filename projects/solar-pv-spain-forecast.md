@@ -3,10 +3,9 @@ layout: page
 title: "Solar Photovoltaic Generation in Spain: Time Series Modeling and Forecast"
 ---
 
-## 1. Project Overview
+### 1. Project Overview
 
-Spain has significantly expanded its renewable energy capacity in the last decade, and solar photovoltaic (PV) is one of the fastest-growing contributors.  
-In this project, I analyze the **monthly evolution of renewable electricity generation in Spain** and develop a **time-series forecasting model** for **solar PV energy sold** up to 2027.
+Spain has significantly expanded its renewable energy capacity in the last decade, and solar photovoltaic (PV) is one of the fastest-growing contributors. In this project, I analyze the **monthly evolution of renewable electricity generation in Spain** and develop a **time-series forecasting model** for **solar PV energy sold** up to 2027.
 
 The main goals are:
 
@@ -17,7 +16,7 @@ The main goals are:
 
 ---
 
-## 2. Data
+### 2. Data
 
 **Source**
 
@@ -52,9 +51,9 @@ Key cleaning and preparation steps:
 
 ---
 
-## 3. Exploratory Analysis
+### 3. Exploratory Analysis
 
-### 3.1 Metrics considered
+#### 3.1 Metrics considered
 
 For each technology, three main metrics are available:
 
@@ -72,7 +71,7 @@ From a time series perspective:
 
 Because we are interested in **operational output and seasonal behavior**, the project models **energy sold**, not installed capacity or installation counts.
 
-### 3.2 Comparing technologies
+#### 3.2 Comparing technologies
 
 The dataset covers multiple renewable technologies. I evaluated several series as potential modeling targets:
 
@@ -94,9 +93,9 @@ After comparing behavior across technologies and considering Spain’s current e
 
 ---
 
-## 4. Time-Series Structure of Solar PV
+### 4. Time-Series Structure of Solar PV
 
-### 4.1 Decomposition
+#### 4.1 Decomposition
 
 Using classical time-series decomposition on the Solar PV energy sold series:
 
@@ -111,11 +110,11 @@ This confirms that Solar PV energy sold is **non-stationary**, with:
 
 ---
 
-## 5. Transformations and Stationarity
+### 5. Transformations and Stationarity
 
 To make the series suitable for ARIMA-type modeling, I applied a sequence of transformations.
 
-### 5.1 Log transformation
+#### 5.1 Log transformation
 
 A **log transformation** was applied to:
 
@@ -124,14 +123,14 @@ A **log transformation** was applied to:
 
 The log-transformed series is more stable but still non-stationary.
 
-### 5.2 Non-seasonal differencing
+#### 5.2 Non-seasonal differencing
 
 Next, I applied **first-order differencing** to the logged series:
 
 - This removes much of the **long-term trend**, making the series fluctuate around a more constant mean.
 - The series gets closer to stationarity, but residual seasonal structure persists.
 
-### 5.3 Seasonal differencing
+#### 5.3 Seasonal differencing
 
 To address seasonality, I added **seasonal differencing at lag 12** (monthly data with yearly seasonality):
 
@@ -146,7 +145,7 @@ The final transformed series (log + first difference + seasonal difference at 12
 
 ---
 
-## 6. Model Specification: SARIMA
+### 6. Model Specification: SARIMA
 
 To capture both short-term dynamics and yearly seasonality, I used a **Seasonal ARIMA (SARIMA)** model on the transformed Solar PV series.
 
@@ -157,7 +156,7 @@ The general structure is:
   - `D = 1` (seasonal differencing)
   - `s = 12` (monthly seasonality)
 
-### 6.1 ACF and PACF diagnostics
+#### 6.1 ACF and PACF diagnostics
 
 I examined the **autocorrelation function (ACF)** and **partial autocorrelation function (PACF)** of the transformed series:
 
@@ -172,7 +171,7 @@ This pattern suggests:
 - Low-order **MA** components to handle short-term noise.
 - A **seasonal MA term** to capture yearly dependencies.
 
-### 6.2 Model selection
+#### 6.2 Model selection
 
 I evaluated a grid of candidate SARIMA models around the patterns seen in ACF/PACF, comparing models using:
 
@@ -199,7 +198,7 @@ Residual analysis indicates:
 
 ---
 
-## 7. Forecasting Results
+### 7. Forecasting Results
 
 Using the fitted SARIMA(0,1,1)(0,1,1)[12] model on the **log-transformed series**, I generated:
 
@@ -224,9 +223,9 @@ The confidence bands:
 
 ---
 
-## 8. Interpretation and Implications
+### 8. Interpretation and Implications
 
-### 8.1 Operational and business implications
+#### 8.1 Operational and business implications
 
 The forecast suggests that:
 
@@ -239,7 +238,7 @@ This has several practical consequences:
 - **Storage and flexibility solutions** (batteries, demand response, interconnections) become more valuable as solar’s seasonal and intrayear variability increases.
 - **Investors and policymakers** can use these forecasts as a baseline scenario when planning infrastructure, incentives, and integration with other renewables.
 
-### 8.2 Methodological implications
+#### 8.2 Methodological implications
 
 From a modeling perspective:
 
@@ -251,9 +250,9 @@ From a modeling perspective:
 
 ---
 
-## 9. Limitations and Next Steps
+### 9. Limitations and Next Steps
 
-### 9.1 Limitations
+#### 9.1 Limitations
 
 Despite its good statistical behavior, the model has important limitations:
 
@@ -264,7 +263,7 @@ Despite its good statistical behavior, the model has important limitations:
 - The forecast uncertainty grows with horizon:
   - Long-term forecasts (several years ahead) should be interpreted as **scenarios**, not precise predictions.
 
-### 9.2 Future improvements
+#### 9.2 Future improvements
 
 Potential extensions:
 
@@ -280,7 +279,7 @@ Potential extensions:
 
 ---
 
-## 10. Code and Notebook
+### 10. Code and Notebook
 
 - **Code repository:** `[link to the GitHub repo that contains the notebook]`
 - **Notebook:** `[direct link to the .ipynb file or an HTML-rendered version]`
