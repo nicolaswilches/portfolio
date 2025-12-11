@@ -1,4 +1,20 @@
-title: "Your Name – Data Science Portfolio"
-description: "Projects in data science, analytics, and machine learning."
-theme: minima   # simple built-in GitHub Pages theme
+title: "Nicolás Higuera Wilches"
+description: "Data Science Portfolio — Projects in analytics, time series forecasting, and machine learning."
+
+# Theme settings
+theme: minima
+
+# Markdown processor
 markdown: kramdown
+
+# Site settings
+url: "" # Base URL for production
+baseurl: "" # Subpath of your site
+
+# Build settings
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor

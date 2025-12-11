@@ -25,7 +25,7 @@ The data comes from the Spanish National Commission on Markets and Competition (
 > Monthly evolution of electricity generated from renewable energies, cogeneration and waste.  
 > Energy sold and installed capacity by technology in Spain.
 
-(Original Spanish dataset: “Evolución mensual de energía eléctrica de origen renovable, cogeneración y residuos. Energía vendida y potencia instalada por tecnología.”)
+(Original Spanish dataset: "Evolución mensual de energía eléctrica de origen renovable, cogeneración y residuos. Energía vendida y potencia instalada por tecnología.")
 
 **Granularity & Period**
 
@@ -71,6 +71,10 @@ From a time series perspective:
 
 Because we are interested in **operational output and seasonal behavior**, the project models **energy sold**, not installed capacity or installation counts.
 
+<div class="chart-container">
+<iframe src="/assets/plots/metrics_evaluation.html" width="100%" height="520" loading="lazy"></iframe>
+</div>
+
 #### 3.2 Comparing technologies
 
 The dataset covers multiple renewable technologies. I evaluated several series as potential modeling targets:
@@ -81,15 +85,19 @@ The dataset covers multiple renewable technologies. I evaluated several series a
 
 These candidates are attractive because:
 
-- They represent a **large share** of Spain’s renewable mix.
+- They represent a **large share** of Spain's renewable mix.
 - Their time series are **long enough** and show **clear trend and seasonality**.
 - They are relevant for **policy, grid planning, and investment**.
 
-After comparing behavior across technologies and considering Spain’s current energy transition, **Solar PV energy sold** was selected as the primary modeling target:
+After comparing behavior across technologies and considering Spain's current energy transition, **Solar PV energy sold** was selected as the primary modeling target:
 
 - It is **one of the fastest-growing series**.
 - It exhibits **strong and interpretable seasonality**.
 - It is highly relevant for **future renewable expansion**.
+
+<div class="chart-container">
+<iframe src="/assets/plots/technologies_comparison.html" width="100%" height="620" loading="lazy"></iframe>
+</div>
 
 ---
 
@@ -107,6 +115,10 @@ This confirms that Solar PV energy sold is **non-stationary**, with:
 
 - Long-term growth (trend).
 - Strong and systematic yearly seasonality.
+
+<div class="chart-container">
+<iframe src="/assets/plots/decomposition.html" width="100%" height="920" loading="lazy"></iframe>
+</div>
 
 ---
 
@@ -143,6 +155,10 @@ The final transformed series (log + first difference + seasonal difference at 12
 - Shows no obvious remaining trend or strong remaining seasonal patterns.
 - Is appropriately prepared for ARIMA modeling.
 
+<div class="chart-container">
+<iframe src="/assets/plots/transformations.html" width="100%" height="920" loading="lazy"></iframe>
+</div>
+
 ---
 
 ### 6. Model Specification: SARIMA
@@ -171,6 +187,10 @@ This pattern suggests:
 - Low-order **MA** components to handle short-term noise.
 - A **seasonal MA term** to capture yearly dependencies.
 
+<div class="chart-container">
+<iframe src="/assets/plots/acf_pacf.html" width="100%" height="920" loading="lazy"></iframe>
+</div>
+
 #### 6.2 Model selection
 
 I evaluated a grid of candidate SARIMA models around the patterns seen in ACF/PACF, comparing models using:
@@ -195,6 +215,10 @@ Residual analysis indicates:
 - No major remaining autocorrelation.
 - Residuals consistent with a white-noise process.
 - The model is statistically adequate for forecasting.
+
+<div class="chart-container">
+<iframe src="/assets/plots/residuals_diagnostic.html" width="100%" height="920" loading="lazy"></iframe>
+</div>
 
 ---
 
@@ -221,6 +245,10 @@ The confidence bands:
 - Stay reasonably tight in the short term.
 - Widen as the horizon extends, reflecting **increasing uncertainty** typical of multi-step ahead forecasts.
 
+<div class="chart-container">
+<iframe src="/assets/plots/forecast_trimmed.html" width="100%" height="620" loading="lazy"></iframe>
+</div>
+
 ---
 
 ### 8. Interpretation and Implications
@@ -229,13 +257,13 @@ The confidence bands:
 
 The forecast suggests that:
 
-- Solar PV will continue to **increase its contribution** to Spain’s electricity mix.
+- Solar PV will continue to **increase its contribution** to Spain's electricity mix.
 - Seasonal peaks in generation will become **larger and more pronounced**, especially in summer months.
 
 This has several practical consequences:
 
 - **Grid operators** need to anticipate higher solar output during peak months and adjust dispatch, storage, and backup resources.
-- **Storage and flexibility solutions** (batteries, demand response, interconnections) become more valuable as solar’s seasonal and intrayear variability increases.
+- **Storage and flexibility solutions** (batteries, demand response, interconnections) become more valuable as solar's seasonal and intrayear variability increases.
 - **Investors and policymakers** can use these forecasts as a baseline scenario when planning infrastructure, incentives, and integration with other renewables.
 
 #### 8.2 Methodological implications
@@ -281,8 +309,8 @@ Potential extensions:
 
 ### 10. Code and Notebook
 
-- **Code repository:** `[link to the GitHub repo that contains the notebook]`
-- **Notebook:** `[direct link to the .ipynb file or an HTML-rendered version]`
+- **Full interactive notebook:** [View complete analysis notebook](/notebooks/solar-pv-spain-forecast.html)
+- **GitHub repository:** [nicolaswilches/portfolio](https://github.com/nicolaswilches)
 
 The notebook includes:
 
